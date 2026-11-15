@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import NavLinks from './NavLinks';
 import CurrentDate from './CurrentDate';
 
@@ -11,13 +12,15 @@ export default function Header() {
           <p className="text-xl font-bold">{WARD_NAME}</p>
           <CurrentDate />
         </div>
-        <NavLinks
-          ariaLabel="Main"
-          links={[
-            { href: '/', label: 'Home', exact: true },
-            { href: '/meetings', label: 'Meetings' },
-          ]}
-        />
+        <Suspense fallback={null}>
+          <NavLinks
+            ariaLabel="Main"
+            links={[
+              { href: '/', label: 'Home', exact: true },
+              { href: '/meetings', label: 'Meetings' },
+            ]}
+          />
+        </Suspense>
       </div>
     </header>
   );

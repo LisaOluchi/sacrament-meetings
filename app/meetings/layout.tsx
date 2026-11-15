@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import NavLinks from '@/components/NavLinks';
 
 export default function MeetingsLayout({
@@ -8,13 +9,15 @@ export default function MeetingsLayout({
   return (
     <section>
       <div className="mb-6 border-b border-gray-300 pb-3 print:hidden">
-        <NavLinks
-          ariaLabel="Meetings section"
-          links={[
-            { href: '/meetings', label: 'All meetings', exact: true },
-            { href: '/meetings/current', label: 'This Sunday', exact: true },
-          ]}
-        />
+        <Suspense fallback={null}>
+          <NavLinks
+            ariaLabel="Meetings section"
+            links={[
+              { href: '/meetings', label: 'All meetings', exact: true },
+              { href: '/meetings/current', label: 'This Sunday', exact: true },
+            ]}
+          />
+        </Suspense>
       </div>
       {children}
     </section>
