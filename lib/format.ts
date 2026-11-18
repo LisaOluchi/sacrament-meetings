@@ -14,8 +14,10 @@ const TYPE_LABELS: Record<MeetingType, string> = {
   testimony: 'Fast and testimony meeting',
   stake: 'Stake meeting (no sacrament)',
   general: 'General meeting (no sacrament)',
+  special: 'Special meeting',
 };
 
 export function meetingTypeLabel(type: MeetingType): string {
   return TYPE_LABELS[type];
 }
+
