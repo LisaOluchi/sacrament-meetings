@@ -17,10 +17,13 @@ export async function GET(
     return NextResponse.json({ error: 'Invalid meeting id' }, { status: 400 });
   }
 
-  const meeting = getMeetingById(meetingId);
-  if (!meeting) {
-    return NextResponse.json({ error: 'Meeting not found' }, { status: 404 });
+  try {
+    const meeting = await getMeetingById(meetingId);
+    if (!meeting) {
+      return NextResponse.json({ error: 'Meeting not found' }, { status: 404 });
+    }
+    return NextResponse.json(meeting);
+  } catch {
+    return NextResponse.json({ error: 'Could not load meeting' }, { status: 500 });
   }
-
-  return NextResponse.json(meeting);
 }

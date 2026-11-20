@@ -1,7 +1,6 @@
 import { connection } from 'next/server';
 import { redirect } from 'next/navigation';
-import { apiFetch } from '@/lib/api';
-import type { SacramentMeeting } from '@/lib/types';
+import { getMeetings } from '@/lib/meetings-db';
 
 function mostRecentSunday(): string {
   const date = new Date();
@@ -15,8 +14,8 @@ function mostRecentSunday(): string {
 export default async function CurrentMeetingPage() {
   await connection();
   const sunday = mostRecentSunday();
-  const meetings = await apiFetch<SacramentMeeting[]>('/api/meetings');
-  const current = meetings?.find((meeting) => meeting.date <= sunday);
+  const meetings = await getMeetings();
+  const current = meetings.find((meeting) => meeting.date <= sunday);
 
   redirect(current ? `/meetings/${current.id}` : '/meetings');
 }
